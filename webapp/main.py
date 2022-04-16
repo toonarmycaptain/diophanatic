@@ -42,7 +42,8 @@ async def addition_ten(request: Request):  # put application's code here
     addition_sign = '+'
     equals_sign = '='
     a = randint(0, 10)
-    b = randint(0, 10)
+    while (a + (b := randint(0, 20))) >= 10:
+        ...
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
                                        "a": a, "b": b,
@@ -56,7 +57,8 @@ async def subtraction_ten(request: Request):  # put application's code here
     subtraction_sign = '-'
     equals_sign = '='
     a = randint(0, 10)
-    b = randint(0, 10)
+    while (a - (b := randint(0, 10))) < 0:
+        ...
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
                                        "a": a, "b": b,
@@ -71,7 +73,8 @@ async def addition_twenty(request: Request):  # put application's code here
     equals_sign = '='
     a = randint(0, 20)
     while (a + (b := randint(0, 20))) >= 20:
-        pass
+        ...
+
 
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
