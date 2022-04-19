@@ -19,3 +19,16 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 5
+
+prometheus:
+  server:
+    ingress:
+      ## If true, Prometheus server Ingress will be created
+      ##
+      enabled: true
+
+      ## Prometheus server Ingress hostnames
+      ## Must be provided if Ingress is enabled
+      ##
+      hosts:
+        - prometheus-1.vmtest.io # Testing url.
