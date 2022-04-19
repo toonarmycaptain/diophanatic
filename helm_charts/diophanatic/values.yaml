@@ -14,6 +14,11 @@ diophanatic_webapp_image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
   port: 80
+  metadata:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /metrics
+      prometheus.io/port: "8080"
   initialDelaySeconds: 30
 autoscaling:
   enabled: true
