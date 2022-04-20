@@ -38,3 +38,5 @@ kube-prometheus-stack:
       ##
       hosts:
         - prometheus-1.vmtest.io # Testing url.
+      paths:
+      - /*  # Needed to avoid 'response 404 (backend NotFound), service rules for the path non-existent' at least on GCP
