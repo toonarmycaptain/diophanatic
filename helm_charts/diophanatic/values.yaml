@@ -25,8 +25,9 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 5
 
-prometheus:
-  server:
+kube-prometheus-stack:
+  prometheus:
+#  server:
     ingress:
       ## If true, Prometheus server Ingress will be created
       ##
