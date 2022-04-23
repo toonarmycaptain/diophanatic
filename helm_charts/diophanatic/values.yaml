@@ -14,7 +14,12 @@ diophanatic_webapp_image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
   port: 80
+  namespace: diophanatic
+  namespaceOverride: diophanatic
   metadata:
+    name: diophanatic-webapp
+    labels:
+      app: diophanatic-webapp
     annotations:
       prometheus.io/scrape: "true"
       prometheus.io/path: /metrics
@@ -28,7 +33,6 @@ kube-prometheus-stack:
   namespace: monitoring
   namespaceOverride: monitoring
   prometheus:
-#  server:
     ingress:
       ## If true, Prometheus server Ingress will be created
       ##
@@ -41,3 +45,11 @@ kube-prometheus-stack:
         - prometheus-1.vmtest.io # Testing url.
       paths:
       - /*  # Needed to avoid 'response 404 (backend NotFound), service rules for the path non-existent' at least on GCP
+    prometheusSpec:
+      scrape_configs:
+        - job_name: diophanatic-webapp-service-scrape
+          static_configs:
+            - targets: [‘diophanatic-webapp-service:80’]
+        - job_name: diophanatic-webapp-scrape
+          static_configs:
+            - targets: [ ‘diophanatic-webapp:80’ ]
