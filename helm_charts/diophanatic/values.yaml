@@ -25,6 +25,8 @@ autoscaling:
   maxReplicas: 5
 
 kube-prometheus-stack:
+  namespace: monitoring
+  namespaceOverride: monitoring
   prometheus:
 #  server:
     ingress:
