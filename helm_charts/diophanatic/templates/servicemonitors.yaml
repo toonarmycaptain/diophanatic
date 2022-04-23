@@ -1,0 +1,39 @@
+# Add servicemonitors aimed at diophanatic components.
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: diophanatic-webapp-monitor
+  namespace: monitoring
+  labels:
+    app: diophanatic-webapp-monitor
+spec:
+  selector:
+    matchLabels:
+#      app: diophanatic-webapp
+      self-monitor: "true"
+  endpoints:
+  - interval: 15s
+    port: http
+    path: "/metrics"
+    honorLabels: true
+  jobLabel: app.kubernetes.io/name
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: diophanatic-webapp-service-monitor
+  namespace: monitoring
+  labels:
+    app: diophanatic-webapp-service-monitor
+spec:
+  selector:
+    matchLabels:
+#      app: diophanatic-webapp-service
+      self-monitor: "true"
+  endpoints:
+  - interval: 15s
+    port: http
+    path: "/metrics"
+    honorLabels: true
+  jobLabel: app.kubernetes.io/name
