@@ -100,7 +100,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
             multiplication_data)
 
 
-def check_db(db_path: Path = DATABASE_PATH) -> True:
+def check_db(db_path: Path = DATABASE_PATH) -> bool:
     """
     Check db has correct schema.
 
