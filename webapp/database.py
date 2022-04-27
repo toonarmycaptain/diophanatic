@@ -43,8 +43,7 @@ def get_db_connection(db_path: Path = DATABASE_PATH) -> sqlite3.Connection:
 
 
 def create_db(db_path: Path = DATABASE_PATH) -> None:
-    # create tables
-    # questions
+    """Create db, populate with data."""
 
     with get_db_connection(db_path) as db_connection:
         cursor = db_connection.cursor()
@@ -78,8 +77,10 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
         addition_cat_id = cursor.lastrowid
         addition_data = [(x, y, x + y, addition_cat_id) for x in range(11) for y in range(11)]
         cursor.executemany(
-            """INSERT INTO question(argument_1, argument_2, answer, question_category) VALUES(?,?,?,?);""",
-            addition_data)
+            """
+            INSERT INTO question(argument_1, argument_2, answer, question_category)
+            VALUES(?,?,?,?);
+            """, addition_data)
 
     with get_db_connection() as db_connection:
         cursor = db_connection.cursor()
@@ -87,8 +88,10 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
         subtraction_cat_id = cursor.lastrowid
         subtraction_data = [(x, y, x - y, subtraction_cat_id) for x in range(21) for y in range(21) if x - y >= 0]
         cursor.executemany(
-            """INSERT INTO question(argument_1, argument_2, answer, question_category) VALUES(?,?,?,?);""",
-            subtraction_data)
+            """
+            INSERT INTO question(argument_1, argument_2, answer, question_category)
+            VALUES(?,?,?,?);
+            """, subtraction_data)
 
     with get_db_connection() as db_connection:
         cursor = db_connection.cursor()
@@ -96,8 +99,10 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
         multiplication_cat_id = cursor.lastrowid
         multiplication_data = [(x, y, x * y, multiplication_cat_id) for x in range(13) for y in range(13)]
         cursor.executemany(
-            """INSERT INTO question(argument_1, argument_2, answer, question_category) VALUES(?,?,?,?);""",
-            multiplication_data)
+            """
+            INSERT INTO question(argument_1, argument_2, answer, question_category)
+            VALUES(?,?,?,?);
+            """, multiplication_data)
 
 
 def check_db(db_path: Path = DATABASE_PATH) -> bool:
