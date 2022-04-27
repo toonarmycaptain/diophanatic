@@ -26,9 +26,9 @@ def initiate_database(db_path: Path = DATABASE_PATH) -> None:
             check_db(db_path)
             print('db checked out')
             return
-        except sqlite3.OperationalError:
+        except sqlite3.OperationalError as error:
             db_path.rename(f"broken_database_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.db")
-            print('sqlite error')
+            print('sqlite error:', error)
         except AssertionError:
             db_path.rename(f"invalid_schema_database_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.db")
             print('bad schema')
