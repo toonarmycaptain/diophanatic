@@ -1,0 +1,46 @@
+# Test your FastAPI endpoints
+
+GET http://127.0.0.1:8000/
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/two_ints
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/three_digits
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/ten
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/addition
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/subtraction
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/addition_to_twenty
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/subtraction_to_twenty
+Accept: text/html
+
+###
+
+GET http://127.0.0.1:8000/multiplication
+Accept: text/html
+
+###
