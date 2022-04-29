@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.diophanatic_question_database.name }}-service"
+spec:
+  selector:
+    app: {{ .Values.diophanatic_question_database.name }}
+  ports:
+    - protocol: TCP
+      port: 1742
+      targetPort: 1742

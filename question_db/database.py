@@ -10,7 +10,17 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
+from pydantic import BaseModel
+
 DATABASE_PATH: Path = Path('database.db')
+
+
+class Question(BaseModel):
+    question_id: int
+    argument_1: int
+    argument_2: int
+    answer: int
+    category: int | None = None  # use question_id or string?
 
 
 def initiate_database(db_path: Path = DATABASE_PATH) -> None:
@@ -19,6 +29,7 @@ def initiate_database(db_path: Path = DATABASE_PATH) -> None:
 
     Recreate db if db invalid, after copying bad db for later analysis.
     """
+    print('initiating database')
     if not db_path.exists():
         create_db()
     else:
@@ -75,7 +86,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
         cursor = db_connection.cursor()
         cursor.execute("""INSERT INTO question_category(name) VALUES('addition');""")
         addition_cat_id = cursor.lastrowid
-        addition_data = [(x, y, x + y, addition_cat_id) for x in range(11) for y in range(11)]
+        addition_data = [(x, y, x + y, addition_cat_id) for x in range(21) for y in range(21) if x+y <= 20]
         cursor.executemany(
             """
             INSERT INTO question(argument_1, argument_2, answer, question_category)

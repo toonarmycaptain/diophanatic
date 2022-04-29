@@ -19,3 +19,14 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 5
+
+
+diophanatic_question_database:
+  name: diophanatic-question-database
+  repository: toonarmycaptain/diophanatic-question-db
+  version: latest
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  port: 1742
+  initialDelaySeconds: 30
