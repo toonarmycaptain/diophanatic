@@ -106,7 +106,7 @@ async def subtraction_twenty(request: Request):  # put application's code here
         question_id, argument_1, argument_2, answer, cat = cursor.execute(
             """
             SELECT * FROM question 
-            WHERE question_category = ? AND argument_1 + argument_2 <= 20
+            WHERE question_category = ? AND argument_1 - argument_2 <= 20
             ORDER BY RANDOM() 
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
