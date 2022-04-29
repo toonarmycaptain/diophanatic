@@ -86,7 +86,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
         cursor = db_connection.cursor()
         cursor.execute("""INSERT INTO question_category(name) VALUES('addition');""")
         addition_cat_id = cursor.lastrowid
-        addition_data = [(x, y, x + y, addition_cat_id) for x in range(11) for y in range(11)]
+        addition_data = [(x, y, x + y, addition_cat_id) for x in range(21) for y in range(21) if x+y <= 20]
         cursor.executemany(
             """
             INSERT INTO question(argument_1, argument_2, answer, question_category)
