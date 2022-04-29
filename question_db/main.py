@@ -5,8 +5,10 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from question import Question
-from database import get_db_connection, initiate_database
+from database import (get_db_connection,
+                      initiate_database,
+                      Question,
+                      )
 
 app = FastAPI()
 

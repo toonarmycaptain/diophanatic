@@ -1,15 +1,4 @@
-from pydantic import BaseModel
-
 from database import get_db_connection
-
-
-class Question(BaseModel):
-    question_id: int
-    argument_1: int
-    argument_2: int
-    answer: int
-    category: int | None = None  # use question_id or string?
-
 
 categories = ['addition', 'subtraction', 'multiplication']
 
@@ -26,5 +15,6 @@ def get_question_category_id(category_string: str) -> int:
     return category_int
 
 
+# This only runs once, on first request, as seen by app log output.
 category = {category: get_question_category_id(category) for category in categories}
 print(f'Question categories: {category}')

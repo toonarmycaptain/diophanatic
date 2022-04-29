@@ -10,7 +10,17 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
+from pydantic import BaseModel
+
 DATABASE_PATH: Path = Path('database.db')
+
+
+class Question(BaseModel):
+    question_id: int
+    argument_1: int
+    argument_2: int
+    answer: int
+    category: int | None = None  # use question_id or string?
 
 
 def initiate_database(db_path: Path = DATABASE_PATH) -> None:
@@ -19,6 +29,7 @@ def initiate_database(db_path: Path = DATABASE_PATH) -> None:
 
     Recreate db if db invalid, after copying bad db for later analysis.
     """
+    print('initiating database')
     if not db_path.exists():
         create_db()
     else:
