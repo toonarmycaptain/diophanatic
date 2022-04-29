@@ -1,0 +1,26 @@
+# Test your FastAPI endpoints
+
+GET http://127.0.0.1:1742/question/addition
+Accept: text/json
+
+###
+
+GET http://127.0.0.1:1742/question/subtraction
+Accept: text/json
+
+###
+
+GET http://127.0.0.1:1742/question/addition_to_twenty
+Accept: text/json
+
+###
+
+GET http://127.0.0.1:1742/question/subtraction_to_twenty
+Accept: text/json
+
+###
+
+GET http://127.0.0.1:1742/question/multiplication
+Accept: text/json
+
+###
