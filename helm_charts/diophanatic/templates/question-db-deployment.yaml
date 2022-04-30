@@ -6,7 +6,7 @@ metadata:
     app: {{ .Values.diophanatic_question_database.name }}
   namespace: default
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.diophanatic_question_database.name }}
