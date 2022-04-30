@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-      {% block title %}Home{% endblock %}
+      {% block title %}{{ title }}{% endblock %}
     {% endblock %}
 {% block body %}
    <h1 align=center>{{a}} {{ operator or 'and' }} {{b}} {{ append }}

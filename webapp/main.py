@@ -48,9 +48,10 @@ async def addition_ten(request: Request):  # put application's code here
 
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
+                                       "title": "addition",
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": addition_sign,
-                                       "append": equals_sign
+                                       "append": equals_sign,
                                        })
 
 
@@ -62,9 +63,10 @@ async def subtraction_ten(request: Request):  # put application's code here
 
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
+                                       "title": "subtraction",
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": subtraction_sign,
-                                       "append": equals_sign
+                                       "append": equals_sign,
                                        })
 
 
@@ -76,9 +78,10 @@ async def addition_twenty(request: Request):  # put application's code here
 
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
+                                       "title": "addition",
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": addition_sign,
-                                       "append": equals_sign
+                                       "append": equals_sign,
                                        })
 
 
@@ -90,9 +93,10 @@ async def subtraction_twenty(request: Request):  # put application's code here
 
     return templates.TemplateResponse("two_integers.html",
                                       {"request": request,
+                                       "title": "subtraction",
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": subtraction_sign,
-                                       "append": equals_sign
+                                       "append": equals_sign,
                                        })
 
 
@@ -103,7 +107,8 @@ def multiplication(request: Request):  # put application's code here
     question = httpx.get("http://diophanatic-question-database-service:1742/question/multiplication").json()
 
     return templates.TemplateResponse('two_integers.html', {"request": request,
+                                                            "title": "multiplication",
                                                             "a": question['argument_1'], "b": question['argument_2'],
                                                             "operator": multiplication_sign,
-                                                            "append": equals_sign
+                                                            "append": equals_sign,
                                                             })
