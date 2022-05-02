@@ -25,19 +25,28 @@ async def two_ints(request: Request):  # put application's code here
 
     a = randint(0, 10)
     b = randint(0, 10)
-    return templates.TemplateResponse("two_integers.html", {"request": request, "a": a, "b": b})
+    return templates.TemplateResponse("two_integers.html", {"request": request,
+                                                            "a": a, "b": b,
+                                                            "next_text": "Next pair",
+                                                            })
 
 
 @app.get('/three_digits', response_class=HTMLResponse)
 def three_digits(request: Request):
     a = randint(0, 1000)
-    return templates.TemplateResponse('single_integer.html', {"request": request, "a": a})
+    return templates.TemplateResponse('single_integer.html', {"request": request,
+                                                              "a": a,
+                                                              "next_text": "Next integer",
+                                                              })
 
 
 @app.get('/ten', response_class=HTMLResponse)
 def ten(request: Request):  # put application's code here
     a = randint(0, 10)
-    return templates.TemplateResponse('single_integer.html', {"request": request, "a": a})
+    return templates.TemplateResponse('single_integer.html', {"request": request,
+                                                              "a": a,
+                                                              "next_text": "Next integer",
+                                                              })
 
 
 @app.get('/addition', response_class=HTMLResponse)
@@ -52,6 +61,7 @@ async def addition_ten(request: Request):  # put application's code here
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": addition_sign,
                                        "append": equals_sign,
+                                       "next_text": "Next question",
                                        })
 
 
@@ -67,6 +77,7 @@ async def subtraction_ten(request: Request):  # put application's code here
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": subtraction_sign,
                                        "append": equals_sign,
+                                       "next_text": "Next question",
                                        })
 
 
@@ -82,6 +93,7 @@ async def addition_twenty(request: Request):  # put application's code here
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": addition_sign,
                                        "append": equals_sign,
+                                       "next_text": "Next question",
                                        })
 
 
@@ -97,6 +109,7 @@ async def subtraction_twenty(request: Request):  # put application's code here
                                        "a": question['argument_1'], "b": question['argument_2'],
                                        "operator": subtraction_sign,
                                        "append": equals_sign,
+                                       "next_text": "Next question",
                                        })
 
 
@@ -111,4 +124,5 @@ def multiplication(request: Request):  # put application's code here
                                                             "a": question['argument_1'], "b": question['argument_2'],
                                                             "operator": multiplication_sign,
                                                             "append": equals_sign,
+                                                            "next_text": "Next question",
                                                             })
