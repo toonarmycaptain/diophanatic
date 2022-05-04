@@ -83,12 +83,12 @@ async def addition_ten(request: Request,
 
 
 @app.post('/addition', response_class=HTMLResponse)
-async def ten(request: Request, answer: str = Form(...)):
+async def addition(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://localhost:1742/question/id/{request.cookies['question_id']}").json()
-    answer = int(answer)
-    question_answer = f"{question['argument_1']} + {question['argument_2']} = {answer}"
-    question_grade = question['argument_1'] + question['argument_2'] == answer
+    answer_int = int(answer)
+    question_answer = f"{question['argument_1']} + {question['argument_2']} = {answer_int}"
+    question_grade = question['argument_1'] + question['argument_2'] == answer_int
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/addition', status_code=303)
     response.set_cookie(key="previous_question_answer", value=question_answer)
