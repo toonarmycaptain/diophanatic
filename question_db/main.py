@@ -31,6 +31,25 @@ async def root(request: Request):
     return {"message": 'diophanatic question db API'}
 
 
+@app.get("/question/id/{question_id}", response_model=Question)
+async def get_question(question_id: int, request: Request):
+    with get_db_connection() as connection:
+        cursor = connection.cursor()
+        question_id, argument_1, argument_2, answer, question_category = cursor.execute(
+            """
+            SELECT * FROM question 
+            WHERE id = ? 
+            LIMIT 1;
+            """, (question_id,)).fetchone()
+
+    return {'question_id': question_id,
+            'argument_1': argument_1,
+            'argument_2': argument_2,
+            'answer': answer,
+            'category': question_category,
+            }
+
+
 @app.get('/question/addition', response_model=Question)
 async def addition_ten(request: Request):
     from question import category
