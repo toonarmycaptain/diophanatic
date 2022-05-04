@@ -5,8 +5,14 @@
     {% endblock %}
 {% block body %}
     <a href="{{url_for('homepage')}}">Home</a>
+    {% if previous_question_answer %}
+        <p>{{previous_question_answer}} => {{ previous_question_grade }}</p>
+    {% endif %}
     <h1 align=center>
-        {{a}} {{ operator or 'and' }} {{b}} {{ append }}
+        <form method="post" name="question">
+            <input type="hidden" id="question_text" name="question_text" value="{{ question_text }}">
+            {{a}} {{ operator or 'and' }} {{b}} {{ append }} <input type="number" name="answer">  <input type="submit" value="submit">
+        </form>
         <!--  Refresh/next question button     -->
         <form> <!--   Button needs to be wrapped in a form.-->
             <input type="submit" value="{{next_text}}">

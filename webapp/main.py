@@ -3,10 +3,15 @@ from random import randint
 
 import httpx
 
-from fastapi import FastAPI, Request
+from fastapi import (Cookie,
+                     FastAPI,
+                     Form,
+                     Request,
+                     )
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.responses import RedirectResponse
 
 app = FastAPI()
 
@@ -50,19 +55,45 @@ def ten(request: Request):  # put application's code here
 
 
 @app.get('/addition', response_class=HTMLResponse)
-async def addition_ten(request: Request):  # put application's code here
+async def addition_ten(request: Request,
+                       previous_question_answer: str | None = Cookie(None),
+                       previous_question_grade: bool | None = Cookie(None),
+                       ):
     addition_sign = '+'
     equals_sign = '='
     question = httpx.get("http://diophanatic-question-database-service:1742/question/addition").json()
 
-    return templates.TemplateResponse("two_integers.html",
-                                      {"request": request,
-                                       "title": "addition",
-                                       "a": question['argument_1'], "b": question['argument_2'],
-                                       "operator": addition_sign,
-                                       "append": equals_sign,
-                                       "next_text": "Next question",
-                                       })
+    response = templates.TemplateResponse("two_integers.html",
+                                          {"request": request,
+                                           "title": "addition",
+                                           "a": question['argument_1'], "b": question['argument_2'],
+                                           "question": question,
+                                           "operator": addition_sign,
+                                           "append": equals_sign,
+                                           "next_text": "Next question",
+                                           "previous_question_answer": previous_question_answer,
+                                           "previous_question_grade": previous_question_grade
+                                           })
+    response.set_cookie(key="question_id", value=question['question_id'])
+    # Delete obsolete cookie values:
+    response.delete_cookie(key="previous_question_answer")
+    response.delete_cookie(key="previous_question_grade")
+
+    return response
+
+
+@app.post('/addition', response_class=HTMLResponse)
+async def ten(request: Request, answer: str = Form(...)):
+    # Ascertain correct/incorrect, then post to db:
+    question = httpx.get(f"http://localhost:1742/question/id/{request.cookies['question_id']}").json()
+    answer = int(answer)
+    question_answer = f"{question['argument_1']} + {question['argument_2']} = {answer}"
+    question_grade = question['argument_1'] + question['argument_2'] == answer
+    # Set cookie values to pass to GET
+    response = RedirectResponse(url='/addition', status_code=303)
+    response.set_cookie(key="previous_question_answer", value=question_answer)
+    response.set_cookie(key="previous_question_grade", value=question_grade)
+    return response
 
 
 @app.get('/subtraction', response_class=HTMLResponse)
