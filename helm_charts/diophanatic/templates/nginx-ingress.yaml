@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: nginx-ingress
+  name: nginx-ingress
+  namespace: default
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.url }}
+
+  rules:
+  - host: {{ .Values.url }}
+    http:
+      paths:
+      - path: /api/question  # is this path wrong? It's not curl-able like within the app
+        pathType: Prefix
+        backend:
+          service:
+            name: diophanatic-question-database-service
+            port:
+              number: 1742
+
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: diophanatic-webapp-service
+            port:
+              number: 80

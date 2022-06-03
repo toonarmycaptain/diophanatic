@@ -30,3 +30,6 @@ diophanatic_question_database:
   tag: "latest"
   port: 1742
   initialDelaySeconds: 30
+
+
+url: url # passed with --set url= when running helm install
