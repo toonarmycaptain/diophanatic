@@ -5,16 +5,19 @@ metadata:
     app: nginx-ingress
   name: nginx-ingress
   namespace: default
+  annotations:
+{{/*    nginx.ingress.kubernetes.io/rewrite-target: /api/$2*/}}
+    nginx.ingress.kubernetes.io/configuration-snippet: |-
+      rewrite ^(/api/question)(.*) /question$2 last;
 spec:
   tls:
   - hosts:
     - {{ .Values.url }}
-
   rules:
   - host: {{ .Values.url }}
     http:
       paths:
-      - path: /api/question  # is this path wrong? It's not curl-able like within the app
+      - path: /question/
         pathType: Prefix
         backend:
           service:
