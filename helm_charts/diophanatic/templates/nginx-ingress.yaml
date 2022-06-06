@@ -5,10 +5,6 @@ metadata:
     app: nginx-ingress
   name: nginx-ingress
   namespace: default
-  annotations:
-{{/*    nginx.ingress.kubernetes.io/rewrite-target: /api/$2*/}}
-    nginx.ingress.kubernetes.io/configuration-snippet: |-
-      rewrite ^(/api/question)(.*) /question$2 last;
 spec:
   tls:
   - hosts:
