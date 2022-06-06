@@ -14,7 +14,7 @@ spec:
   - host: {{ .Values.url }}
     http:
       paths:
-      - path: /question/
+      - path: /api/question/
         pathType: Prefix
         backend:
           service:
