@@ -25,12 +25,14 @@ category: dict
 async def initialise_database(database_path: Path = DATABASE_PATH):
     initiate_database()
 
-
+@app.get("/api/question/")
+@app.get("/api/question")
 @app.get("/")
 async def root(request: Request):
     return {"message": 'diophanatic question db API'}
 
 
+@app.get('/api/question/addition', response_model=Question)
 @app.get('/question/addition', response_model=Question)
 async def addition_ten(request: Request):
     from question import category
@@ -52,7 +54,7 @@ async def addition_ten(request: Request):
             'category': question_cat_id,
             }
 
-
+@app.get('/api/question/subtraction', response_model=Question)
 @app.get('/question/subtraction', response_model=Question)
 async def subtraction_ten(request: Request):  # put application's code here
     from question import category
@@ -74,7 +76,7 @@ async def subtraction_ten(request: Request):  # put application's code here
             'category': question_cat_id,
             }
 
-
+@app.get('/api/question/addition_to_twenty', response_model=Question)
 @app.get('/question/addition_to_twenty', response_model=Question)
 async def addition_twenty(request: Request):  # put application's code here
     from question import category
@@ -96,7 +98,7 @@ async def addition_twenty(request: Request):  # put application's code here
             'category': question_cat_id,
             }
 
-
+@app.get('/api/question/subtraction_to_twenty', response_model=Question)
 @app.get('/question/subtraction_to_twenty', response_model=Question)
 async def subtraction_twenty(request: Request):  # put application's code here
     from question import category
@@ -118,7 +120,7 @@ async def subtraction_twenty(request: Request):  # put application's code here
             'category': question_cat_id,
             }
 
-
+@app.get('/api/question/multiplication', response_model=Question)
 @app.get('/question/multiplication', response_model=Question)
 def multiplication(request: Request):  # put application's code here
     from question import category
