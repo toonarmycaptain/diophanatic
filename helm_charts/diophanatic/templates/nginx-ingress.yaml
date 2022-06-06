@@ -14,14 +14,13 @@ spec:
   - host: {{ .Values.url }}
     http:
       paths:
-      - path: /api/question/
+      - path: /api/question
         pathType: Prefix
         backend:
           service:
             name: diophanatic-question-database-service
             port:
               number: 1742
-
       - path: /
         pathType: Prefix
         backend:

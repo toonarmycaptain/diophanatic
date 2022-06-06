@@ -25,6 +25,7 @@ category: dict
 async def initialise_database(database_path: Path = DATABASE_PATH):
     initiate_database()
 
+@app.get("/api/question/")
 @app.get("/api/question")
 @app.get("/")
 async def root(request: Request):
