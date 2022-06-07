@@ -31,7 +31,7 @@ async def initialise_database(database_path: Path = DATABASE_PATH):
 async def root(request: Request):
     return {"message": 'diophanatic question db API'}
 
-@app.get("api/question/id/{question_id}", response_model=Question)
+@app.get("/api/question/id/{question_id}", response_model=Question)
 @app.get("/question/id/{question_id}", response_model=Question)
 async def get_question(question_id: int, request: Request):
     with get_db_connection() as connection:
