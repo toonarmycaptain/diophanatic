@@ -85,7 +85,7 @@ async def addition_ten(request: Request,
 @app.post('/addition', response_class=HTMLResponse)
 async def addition(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
-    question = httpx.get(f"http://localhost:1742/question/id/{request.cookies['question_id']}").json()
+    question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
     question_answer = f"{question['argument_1']} + {question['argument_2']} = {answer_int}"
     question_grade = question['argument_1'] + question['argument_2'] == answer_int
