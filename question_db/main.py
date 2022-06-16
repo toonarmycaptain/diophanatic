@@ -9,6 +9,8 @@ from database import (get_db_connection,
                       initiate_database,
                       Question,
                       )
+from database_queries import (get_operator,
+                              )
 
 app = FastAPI()
 
@@ -43,14 +45,7 @@ async def get_question(question_id: int, request: Request):
             LIMIT 1;
             """, (question_id,)).fetchone()
 
-    with get_db_connection() as connection:
-        cursor = connection.cursor()
-        operator, = cursor.execute(
-            """
-            SELECT text_operator FROM question_category
-            WHERE id == ? 
-            LIMIT 1;
-            """, (question_category,)).fetchone()
+    operator = get_operator(question_category)
 
     return {'question_id': question_id,
             'argument_1': argument_1,
@@ -76,6 +71,8 @@ async def addition_ten(request: Request):
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
 
+    operator = get_operator(cat)
+
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
@@ -98,6 +95,8 @@ async def subtraction_ten(request: Request):  # put application's code here
             ORDER BY RANDOM() 
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
+
+    operator = get_operator(cat)
 
     return {'question_id': question_id,
             'argument_1': argument_1,
@@ -122,6 +121,8 @@ async def addition_twenty(request: Request):  # put application's code here
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
 
+    operator = get_operator(cat)
+
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
@@ -145,7 +146,7 @@ async def subtraction_twenty(request: Request):  # put application's code here
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
 
-
+    operator = get_operator(cat)
 
     return {'question_id': question_id,
             'argument_1': argument_1,
@@ -169,6 +170,8 @@ def multiplication(request: Request):  # put application's code here
             ORDER BY RANDOM() 
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
+
+    operator = get_operator(cat)
 
     return {'question_id': question_id,
             'argument_1': argument_1,
