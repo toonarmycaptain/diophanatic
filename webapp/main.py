@@ -59,7 +59,6 @@ async def addition_ten(request: Request,
                        previous_question_answer: str | None = Cookie(None),
                        previous_question_grade: bool | None = Cookie(None),
                        ):
-    addition_sign = '+'
     equals_sign = '='
     question = httpx.get("http://diophanatic-question-database-service:1742/question/addition").json()
 
@@ -68,7 +67,7 @@ async def addition_ten(request: Request,
                                            "title": "addition",
                                            "a": question['argument_1'], "b": question['argument_2'],
                                            "question": question,
-                                           "operator": addition_sign,
+                                           "operator": question['operator'],
                                            "append": equals_sign,
                                            "next_text": "Next question",
                                            "previous_question_answer": previous_question_answer,
@@ -102,7 +101,6 @@ async def subtraction_ten(request: Request,
                           previous_question_answer: str | None = Cookie(None),
                           previous_question_grade: bool | None = Cookie(None),
                           ):
-    subtraction_sign = '-'
     equals_sign = '='
     question = httpx.get("http://diophanatic-question-database-service:1742/question/subtraction").json()
 
@@ -111,7 +109,7 @@ async def subtraction_ten(request: Request,
                                            "title": "subtraction",
                                            "a": question['argument_1'], "b": question['argument_2'],
                                            "question": question,
-                                           "operator": subtraction_sign,
+                                           "operator": question['operator'],
                                            "append": equals_sign,
                                            "next_text": "Next question",
                                            "previous_question_answer": previous_question_answer,
@@ -144,7 +142,6 @@ async def addition_twenty(request: Request,
                           previous_question_answer: str | None = Cookie(None),
                           previous_question_grade: bool | None = Cookie(None),
                           ):
-    addition_sign = '+'
     equals_sign = '='
     question = httpx.get("http://diophanatic-question-database-service:1742/question/addition_to_twenty").json()
 
@@ -152,7 +149,7 @@ async def addition_twenty(request: Request,
                                           {"request": request,
                                            "title": "addition",
                                            "a": question['argument_1'], "b": question['argument_2'],
-                                           "operator": addition_sign,
+                                           "operator": question['operator'],
                                            "append": equals_sign,
                                            "next_text": "Next question",
                                            "previous_question_answer": previous_question_answer,
@@ -185,7 +182,6 @@ async def subtraction_twenty(request: Request,
                              previous_question_answer: str | None = Cookie(None),
                              previous_question_grade: bool | None = Cookie(None),
                              ):
-    subtraction_sign = '-'
     equals_sign = '='
     question = httpx.get("http://diophanatic-question-database-service:1742/question/subtraction_to_twenty").json()
 
@@ -193,7 +189,7 @@ async def subtraction_twenty(request: Request,
                                           {"request": request,
                                            "title": "subtraction",
                                            "a": question['argument_1'], "b": question['argument_2'],
-                                           "operator": subtraction_sign,
+                                           "operator": question['operator'],
                                            "append": equals_sign,
                                            "next_text": "Next question",
                                            "previous_question_answer": previous_question_answer,
@@ -226,7 +222,6 @@ def multiplication(request: Request,
                    previous_question_answer: str | None = Cookie(None),
                    previous_question_grade: bool | None = Cookie(None),
                    ):
-    multiplication_sign = '×'
     equals_sign = '='
     question = httpx.get("http://diophanatic-question-database-service:1742/question/multiplication").json()
 
@@ -234,7 +229,7 @@ def multiplication(request: Request,
                                                                 "title": "multiplication",
                                                                 "a": question['argument_1'],
                                                                 "b": question['argument_2'],
-                                                                "operator": multiplication_sign,
+                                                                "operator": question['operator'],
                                                                 "append": equals_sign,
                                                                 "next_text": "Next question",
                                                                 "previous_question_answer": previous_question_answer,
