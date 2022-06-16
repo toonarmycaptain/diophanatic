@@ -87,7 +87,7 @@ async def addition_ten(request: Request, answer: str = Form(...)):
     question = httpx.get(
         f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
-    question_answer = f"{question['argument_1']} + {question['argument_2']} = {answer_int}"
+    question_answer = f"{question['argument_1']} {question['operator']} {question['argument_2']} = {answer_int}"
     question_grade = question['argument_1'] + question['argument_2'] == answer_int
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/addition', status_code=303)
@@ -128,7 +128,7 @@ async def subtraction_ten(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
-    question_answer = f"{question['argument_1']} - {question['argument_2']} = {answer_int}"
+    question_answer = f"{question['argument_1']} {question['operator']} {question['argument_2']} = {answer_int}"
     question_grade = question['argument_1'] - question['argument_2'] == answer_int
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/subtraction', status_code=303)
@@ -168,7 +168,7 @@ async def addition_twenty(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
-    question_answer = f"{question['argument_1']} + {question['argument_2']} = {answer_int}"
+    question_answer = f"{question['argument_1']} {question['operator']} {question['argument_2']} = {answer_int}"
     question_grade = question['argument_1'] + question['argument_2'] == answer_int
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/addition_to_twenty', status_code=303)
@@ -208,7 +208,7 @@ async def subtraction_twenty(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
-    question_answer = f"{question['argument_1']} - {question['argument_2']} = {answer_int}"
+    question_answer = f"{question['argument_1']} {question['operator']} {question['argument_2']} = {answer_int}"
     question_grade = question['argument_1'] - question['argument_2'] == answer_int
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/subtraction_to_twenty', status_code=303)
@@ -248,7 +248,7 @@ async def multiplication(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
-    question_answer = f"{question['argument_1']} * {question['argument_2']} = {answer_int}"
+    question_answer = f"{question['argument_1']} {question['operator']} {question['argument_2']} = {answer_int}"
     question_grade = question['argument_1'] * question['argument_2'] == answer_int
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/multiplication', status_code=303)
