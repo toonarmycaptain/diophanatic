@@ -108,7 +108,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
 
     with get_db_connection() as db_connection:
         cursor = db_connection.cursor()
-        cursor.execute("""INSERT INTO question_category(name, text_operator) VALUES('multiplication', '*');""")
+        cursor.execute("""INSERT INTO question_category(name, text_operator) VALUES('multiplication', '×');""")
         multiplication_cat_id = cursor.lastrowid
         multiplication_data = [(x, y, x * y, multiplication_cat_id) for x in range(13) for y in range(13)]
         cursor.executemany(
