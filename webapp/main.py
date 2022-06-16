@@ -208,7 +208,7 @@ async def subtraction_twenty(request: Request,
 
 
 @app.post('/subtraction_to_twenty', response_class=HTMLResponse)
-async def addition_twenty(request: Request, answer: str = Form(...)):
+async def subtraction_twenty(request: Request, answer: str = Form(...)):
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
