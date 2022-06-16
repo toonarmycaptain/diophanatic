@@ -43,9 +43,19 @@ async def get_question(question_id: int, request: Request):
             LIMIT 1;
             """, (question_id,)).fetchone()
 
+    with get_db_connection() as connection:
+        cursor = connection.cursor()
+        operator, = cursor.execute(
+            """
+            SELECT text_operator FROM question_category
+            WHERE id == ? 
+            LIMIT 1;
+            """, (question_category,)).fetchone()
+
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
+            'operator': operator,
             'answer': answer,
             'category': question_category,
             }
@@ -69,6 +79,7 @@ async def addition_ten(request: Request):
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
+            'operator': operator,
             'answer': answer,
             'category': question_cat_id,
             }
@@ -91,6 +102,7 @@ async def subtraction_ten(request: Request):  # put application's code here
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
+            'operator': operator,
             'answer': answer,
             'category': question_cat_id,
             }
@@ -113,6 +125,7 @@ async def addition_twenty(request: Request):  # put application's code here
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
+            'operator': operator,
             'answer': answer,
             'category': question_cat_id,
             }
@@ -132,9 +145,12 @@ async def subtraction_twenty(request: Request):  # put application's code here
             LIMIT 1;
             """, (question_cat_id,)).fetchone()
 
+
+
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
+            'operator': operator,
             'answer': answer,
             'category': question_cat_id,
             }
@@ -157,6 +173,7 @@ def multiplication(request: Request):  # put application's code here
     return {'question_id': question_id,
             'argument_1': argument_1,
             'argument_2': argument_2,
+            'operator': operator,
             'answer': answer,
             'category': question_cat_id,
             }
