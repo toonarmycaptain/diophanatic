@@ -12,6 +12,7 @@ from fastapi import (Cookie,
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from plusminus import ArithmeticParser
 from starlette.responses import RedirectResponse
 
 app = FastAPI()
@@ -91,7 +92,8 @@ async def addition_ten_post(request: Request, answer: Optional[str] = Form(None)
         f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
     question_answer = f"{question['argument_1']} {question['operator']} {question['argument_2']} = {answer_int}"
-    question_grade = question['argument_1'] + question['argument_2'] == answer_int
+    question_grade = ArithmeticParser().evaluate(f"{question['argument_1']} {question['operator']} {question['argument_2']}") == answer_int
+
     # Set cookie values to pass to GET
     response = RedirectResponse(url='/addition', status_code=303)
     response.set_cookie(key="previous_question_answer", value=question_answer)
