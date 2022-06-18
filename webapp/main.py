@@ -1,5 +1,6 @@
 from pathlib import Path
 from random import randint
+from typing import Optional
 
 import httpx
 
@@ -82,7 +83,9 @@ async def addition_ten(request: Request,
 
 
 @app.post('/addition', response_class=HTMLResponse)
-async def addition_ten_post(request: Request, answer: str = Form(...)):
+async def addition_ten_post(request: Request, answer: Optional[str] = Form(None)):
+    if answer is None:
+        return RedirectResponse(url='/addition', status_code=303)
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(
         f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
@@ -124,7 +127,9 @@ async def subtraction_ten(request: Request,
 
 
 @app.post('/subtraction', response_class=HTMLResponse)
-async def subtraction_ten_post(request: Request, answer: str = Form(...)):
+async def subtraction_ten_post(request: Request, answer: Optional[str] = Form(None)):
+    if answer is None:
+        return RedirectResponse(url='/subtraction', status_code=303)
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
@@ -164,7 +169,9 @@ async def addition_twenty(request: Request,
 
 
 @app.post('/addition_to_twenty', response_class=HTMLResponse)
-async def addition_twenty_post(request: Request, answer: str = Form(...)):
+async def addition_twenty_post(request: Request, answer: Optional[str] = Form(None)):
+    if answer is None:
+        return RedirectResponse(url='/addition_to_twenty', status_code=303)
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
@@ -204,7 +211,9 @@ async def subtraction_twenty(request: Request,
 
 
 @app.post('/subtraction_to_twenty', response_class=HTMLResponse)
-async def subtraction_twenty_post(request: Request, answer: str = Form(...)):
+async def subtraction_twenty_post(request: Request, answer: Optional[str] = Form(None)):
+    if answer is None:
+        return RedirectResponse(url='/subtraction_to_twenty', status_code=303)
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
@@ -244,7 +253,9 @@ def multiplication(request: Request,
 
 
 @app.post('/multiplication', response_class=HTMLResponse)
-async def multiplication_post(request: Request, answer: str = Form(...)):
+async def multiplication_post(request: Request, answer: Optional[str] = Form(None)):
+    if answer is None:
+        return RedirectResponse(url='/multiplication', status_code=303)
     # Ascertain correct/incorrect, then post to db:
     question = httpx.get(f"http://diophanatic-question-database-service:1742/question/id/{request.cookies['question_id']}").json()
     answer_int = int(answer)
