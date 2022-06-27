@@ -1,0 +1,61 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: nginx-api
+spec:
+  controller: k8s.io/ingress-nginx  #???
+  parameters:
+    apiGroup: api.diophanatic.trml.io
+    kind: IngressParameter
+    name: nginx-api
+---
+{{/*apiVersion: k8s.nginx.org/v1*/}}
+{{/*kind: VirtualServer*/}}
+{{/*metadata:*/}}
+{{/*  name: api-ingress*/}}
+{{/*spec:*/}}
+{{/*  ingressClassName: nginx-api*/}}
+{{/*  host: api.{{ .Values.url }}*/}}
+{{/*  policies:*/}}
+{{/*  - name: rate-limit-policy*/}}
+{{/*  upstreams:*/}}
+{{/*  - name: api*/}}
+{{/*    service: diophantic-question-database-service*/}}
+{{/*    port: 80*/}}
+{{/*  routes:*/}}
+{{/*  - path: /*/}}
+{{/*    action:*/}}
+{{/*      pass: api*/}}
+{{/*---*/}}
+# attempt at using Nginx VirtualServer
+# Need to install Custom Resource Definintions (CRD) to get this to work:
+# git clone https://github.com/nginxinc/kubernetes-ingress/
+# cd kubernetes-ingress/deployments
+# git checkout v2.0.3 (or latest, as you wish)
+
+# kubectl apply -f common/crds/k8s.nginx.org_virtualservers.yaml
+# kubectl apply -f common/crds/k8s.nginx.org_virtualserverroutes.yaml
+# kubectl apply -f common/crds/k8s.nginx.org_transportservers.yaml
+# kubectl apply -f common/crds/k8s.nginx.org_policies.yaml
+
+# NB this did not work, the VirtualServer did not manage to get an external IP
+
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: api-ingress
+spec:
+  ingressClassName: nginx-api
+  host: api.{{ .Values.url }}
+  policies:
+  - name: rate-limit-policy
+  upstreams:
+  - name: api
+    service: diophantic-question-database-service
+    port: 80
+  routes:
+  - path: /
+    action:
+      proxy:
+        upstream: api
+        rewritePath: /api
