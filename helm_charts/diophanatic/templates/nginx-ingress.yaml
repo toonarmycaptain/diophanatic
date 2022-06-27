@@ -13,8 +13,9 @@ spec:
   - hosts:
     - {{ .Values.url }}
   rules:
-  - host: {{ .Values.url }}
-    http:
+{{/*  - host: {{ .Values.url }}  # having a host url prevents access via the Ingress' public IP, only allowing traffic via the domain name supplied. */}}
+{{/*    http:*/}}
+  - http:
       paths:
       - path: /api/question
         pathType: Prefix

@@ -9,6 +9,10 @@
     {% endblock %}
   </head>
   <body>
+    {# display Home link if not on homepage #}
+    {% if request.path != '/' %} {# is there a less fragile way in case the url for 'homepage' changes? #}
+        <p><a href="{{ url_for('homepage') }}">Home</a></p>
+    {% endif %}
     {% block body %}{% endblock %}
 
 

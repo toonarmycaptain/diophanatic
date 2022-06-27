@@ -4,6 +4,30 @@
       {% block title %}{{ title }}{% endblock %}
     {% endblock %}
 {% block body %}
-   <h1 align=center>{{a}} {{ operator or 'and' }} {{b}} {{ append }}
+    {% if previous_question_answer %}
+        <p>{{previous_question_answer}} => {{ previous_question_grade }}</p>
+    {% endif %}
 
+    <script type="application/javascript">  {# NB This script must be in body, if it is in header tag it does not work. #}
+        document.onkeyup = (e) => {
+            if (e.target.tagName === 'INPUT') {
+                const canSubmit = [...document.forms.question.querySelectorAll('input[type="number"]')]
+                    .every(i => {
+                        return i.value
+                    })
+                document.forms.question.querySelector('input[type="submit"]').disabled = !canSubmit
+            }
+        }
+    </script>
+
+    <h1 align=center>
+        <form method="post" name="question">
+            <input type="hidden" id="question_text" name="question_text" value="{{ question_text }}">
+            {{a}} {{ operator or 'and' }} {{b}} {{ append }} {% if append %}<input type="number" id="answer" name="answer">  <input type="submit" id="submit_answer" value="submit" disabled> {%  endif %}
+        </form>
+        <!--  Refresh/next question button     -->
+        <form> <!--   Button needs to be wrapped in a form.-->
+            <input type="submit" value="{{next_text}}">
+        </form>
+    </h1>
 {% endblock %}

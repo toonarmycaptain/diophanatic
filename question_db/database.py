@@ -20,6 +20,7 @@ class Question(BaseModel):
     argument_1: int
     argument_2: int
     answer: int
+    operator: str
     category: int | None = None  # use question_id or string?
 
 
@@ -62,7 +63,8 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
             """
             CREATE TABLE IF NOT EXISTS question_category(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
+            name TEXT NOT NULL,
+            text_operator TEXT NOT NULL
             );
             """)
 
@@ -84,7 +86,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
 
     with get_db_connection() as db_connection:
         cursor = db_connection.cursor()
-        cursor.execute("""INSERT INTO question_category(name) VALUES('addition');""")
+        cursor.execute("""INSERT INTO question_category(name, text_operator) VALUES('addition', '+');""")
         addition_cat_id = cursor.lastrowid
         addition_data = [(x, y, x + y, addition_cat_id) for x in range(21) for y in range(21) if x+y <= 20]
         cursor.executemany(
@@ -95,7 +97,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
 
     with get_db_connection() as db_connection:
         cursor = db_connection.cursor()
-        cursor.execute("""INSERT INTO question_category(name) VALUES('subtraction');""")
+        cursor.execute("""INSERT INTO question_category(name, text_operator) VALUES('subtraction', '-');""")
         subtraction_cat_id = cursor.lastrowid
         subtraction_data = [(x, y, x - y, subtraction_cat_id) for x in range(21) for y in range(21) if x - y >= 0]
         cursor.executemany(
@@ -106,7 +108,7 @@ def create_db(db_path: Path = DATABASE_PATH) -> None:
 
     with get_db_connection() as db_connection:
         cursor = db_connection.cursor()
-        cursor.execute("""INSERT INTO question_category(name) VALUES('multiplication');""")
+        cursor.execute("""INSERT INTO question_category(name, text_operator) VALUES('multiplication', '×');""")
         multiplication_cat_id = cursor.lastrowid
         multiplication_data = [(x, y, x * y, multiplication_cat_id) for x in range(13) for y in range(13)]
         cursor.executemany(
